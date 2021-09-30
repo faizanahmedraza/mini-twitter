@@ -23,7 +23,7 @@
             <div class="text-center text-sm text-gray-500 sm:text-left">
                 <div class="py-4 sm:block">
                     @auth
-                        <a href="{{ url('/home') }}"
+                        <a href="{{ url('/tweets') }}"
                            class="text-lg text-gray-700 dark:text-gray-500 hover:underline">Home</a>
                     @else
                         <a href="{{ route('login') }}" class="text-lg text-gray-700 dark:text-gray-500 hover:underline">Log

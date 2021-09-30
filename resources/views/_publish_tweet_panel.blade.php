@@ -3,12 +3,15 @@
         <div class="mr-4 flex-shrink-0">
             <img src="{{auth()->user()->avatar}}"
                  alt=""
-                 class="rounded-full mr-4"/>
+                 class="rounded-full mr-4"
+                 width="50"
+                 height="50"/>
         </div>
 
         <form class="flex-1" action="/tweets" method="POST">
             @csrf
-            <textarea name="body" id="" class="w-full placeholder-gray-600 border-0 focus:outline-none text-lg" placeholder="What's Happening?"></textarea>
+            <textarea name="body" id="" class="w-full placeholder-gray-600 border-0 focus:outline-none text-lg"
+                      placeholder="What's Happening?"></textarea>
             @error('body')
             <p class="text-red-400 text-sm mt-2">{{$message}}</p>
             @enderror

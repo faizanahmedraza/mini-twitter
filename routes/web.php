@@ -1,7 +1,10 @@
 <?php
 
+//\Illuminate\Support\Facades\DB::listen(function ($query){ var_dump($query->sql,$query->bindings);});
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TweetController;
+use \App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,8 +20,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('tweets',[TweetController::class,'store']);
+Route::middleware('auth')->group(function (){
+    Route::get('/tweets',[TweetController::class,'index'])->name('home');
+    Route::post('/tweets',[TweetController::class,'store']);
+});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/profiles/{user:name}',[ProfileController::class,'show'])->name('profile');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
