@@ -5,6 +5,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TweetController;
 use \App\Http\Controllers\ProfileController;
+use \App\Http\Controllers\FollowsController;
+use \App\Http\Controllers\ExploreController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,12 +23,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware('auth')->group(function (){
-    Route::get('/tweets',[TweetController::class,'index'])->name('home');
-    Route::post('/tweets',[TweetController::class,'store']);
+Route::middleware('auth')->group(function () {
+    Route::get('/tweets', [TweetController::class, 'index'])->name('home');
+    Route::post('/tweets', [TweetController::class, 'store']);
+    Route::post('/profiles/{user:username}/follow', [FollowsController::class, 'store'])->name('follow.store');
+    Route::get('/profiles/{user:username}/edit', [ProfileController::class, 'edit'])->middleware('can:edit,user')->name('profile.edit');
+    Route::patch('/profiles/{user:username}/update', [ProfileController::class, 'update'])->middleware('can:edit,user')->name('profile.update');
+    Route::get('/explore', ExploreController::class)->name('explore');
 });
+
+Route::get('/profiles/{user:username}', [ProfileController::class, 'show'])->name('profile');
 
 Auth::routes();
 
-Route::get('/profiles/{user:name}',[ProfileController::class,'show'])->name('profile');
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/logout',function (){
+   auth()->logout();
+   return redirect()->route('login');
+});

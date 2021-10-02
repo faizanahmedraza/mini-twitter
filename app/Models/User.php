@@ -19,9 +19,12 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
+        'username',
         'name',
+        'avatar',
+        'about',
         'email',
-        'password',
+        'password'
     ];
 
     /**
@@ -43,20 +46,31 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getAvatarAttribute()
+    public function setPasswordAttribute($value)
     {
-        return "https://i.pravatar.cc/200?u=".$this->email;
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function getAvatarAttribute($value)
+    {
+        return asset($value ? 'storage/'.$value: '/images/default-avatar.png');
     }
 
     public function timeline()
     {
         $friends = $this->follows()->pluck('id');
-        return Tweet::whereIn('user_id',$friends)->orWhere('user_id',$this->id)->latest()->get();
+        return Tweet::whereIn('user_id',$friends)->orWhere('user_id',$this->id)->latest()->paginate(50);
     }
 
 
     public function tweets()
     {
-        return $this->hasMany(Tweet::class,'user_id','id');
+        return $this->hasMany(Tweet::class,'user_id','id')->latest();
+    }
+
+    public function profilePath($append = '')
+    {
+        $path = route('profile',$this->username);
+        return $append ? "{$path}/{$append}" : $path;
     }
 }
