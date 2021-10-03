@@ -56,6 +56,11 @@ class User extends Authenticatable
         return asset($value ? 'storage/'.$value: '/images/default-avatar.png');
     }
 
+    public function getBannerAttribute($value)
+    {
+        return asset('');
+    }
+
     public function timeline()
     {
         $friends = $this->follows()->pluck('id');
