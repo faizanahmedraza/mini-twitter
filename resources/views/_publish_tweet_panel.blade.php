@@ -1,4 +1,4 @@
-<div class="border border-gray-200 rounded-lg px-5 py-3">
+<div class="px-5 py-3 border-b border-gray-200">
     <div class="flex">
         <div class="mr-4 flex-shrink-0">
             <img src="{{current_user()->avatar}}"

@@ -22,6 +22,7 @@ class User extends Authenticatable
         'username',
         'name',
         'avatar',
+        'banner',
         'about',
         'email',
         'password'
@@ -53,12 +54,12 @@ class User extends Authenticatable
 
     public function getAvatarAttribute($value)
     {
-        return asset($value ? 'storage/'.$value: '/images/default-avatar.png');
+        return asset($value ? 'storage/'.$value : '/images/default-avatar.png');
     }
 
     public function getBannerAttribute($value)
     {
-        return asset('');
+        return asset($value ? 'storage/'.$value : '/images/default-banner.jpg');
     }
 
     public function timeline()

@@ -35,7 +35,10 @@ class ProfileController extends Controller
                 'string','required','max:255', Rule::unique('users','email')->ignore($user)
             ],
             'avatar' => [
-                'sometimes','nullable','file'
+                'sometimes','nullable','image','mimes:jpeg,jpg,png','dimensions:min_width=50,min_height=60','max:100000' //max:1MB
+            ],
+            'banner' => [
+                'sometimes','nullable','image','mimes:jpeg,jpg,png','dimensions:min_width=700,min_height=185','max:100000' //max:1MB
             ],
             'password' => [
                 'sometimes','nullable','string','min:8','max:255','confirmed'
@@ -51,6 +54,10 @@ class ProfileController extends Controller
         if(request()->avatar)
         {
             $attributes['avatar'] = request()->file('avatar')->store('avatars');
+        }
+        if(request()->banner)
+        {
+            $attributes['banner'] = request()->file('banner')->store('banners');
         }
         $user->update($attributes);
         return redirect($user->profilePath());

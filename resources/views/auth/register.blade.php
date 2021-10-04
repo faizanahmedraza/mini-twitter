@@ -1,6 +1,6 @@
 <x-master>
-    <div class="container mx-auto flex justify-center">
-        <div class="px-12 py-8 bg-gray-200 border border-gray-300 rounded-2xl">
+    <div class="container mx-auto h-screen flex justify-center items-center">
+        <div class="px-12 py-6 bg-gray-200 border border-gray-300 rounded-2xl">
             <div class="col-md-8">
                 <div class="font-bold text-lg mb-4">{{ __('Register') }}</div>
 

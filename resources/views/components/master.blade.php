@@ -22,14 +22,6 @@
 </head>
 <body>
 <div id="app">
-    <section class="px-8 py-3">
-        <header class="container mx-auto">
-            <div class="flex">
-                <img class="w-10 h-auto flex-initial" src="{{asset('images/twitter_bird_logo.png')}}" alt="Tweety"/>
-                <h1 class="text-2xl font-bold pl-1">Tweety</h1>
-            </div>
-        </header>
-    </section>
     {{ $slot }}
 </div>
 </body>

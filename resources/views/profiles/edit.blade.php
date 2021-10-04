@@ -57,6 +57,21 @@
             @enderror
         </div>
         <div class="mb-6">
+            <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="avatar">Banner</label>
+            <div class="flex">
+                <input class="border border-gray-400 p-2 w-full"
+                       type="file"
+                       name="banner"
+                       id="banner"/>
+            </div>
+            <img class="block w-full h-2/4 rounded-2xl mt-2" src="{{$user->banner}}"
+                 alt="your banner"
+                 width=""/>
+            @error('banner')
+            <p class="text-red-500 text-xs mt-2">{{$message}}</p>
+            @enderror
+        </div>
+        <div class="mb-6">
             <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="password">Password</label>
             <input class="border border-gray-400 p-2 w-full"
                    type="password"
