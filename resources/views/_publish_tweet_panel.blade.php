@@ -19,7 +19,10 @@
 
             <footer class="flex justify-between items-center">
                 <div class="text-blue-400 lg:pt-2 text-2xl">
-                    <a class="flex-initial pr-2" href=""><i class="fal fa-smile fa-fw"></i></a>
+                    <div class="fileUploadWrap">
+                        <div class="flex-initial pr-2"><i class="fal fa-smile fa-fw"></i></div>
+                        <input id="" accept="image/jpeg,image/png,image/webp" tabindex="-1" type="file" class="" data-testid="fileInput">
+                    </div>
                     <a class="flex-initial" href=""><i class="fal fa-calendar-check fa-fw"></i></a>
                 </div>
                 <button type="submit"
