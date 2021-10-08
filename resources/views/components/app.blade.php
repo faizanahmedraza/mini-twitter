@@ -14,4 +14,5 @@
             </div>
         </main>
     </section>
+    <x-flash-message></x-flash-message>
 </x-master>

@@ -12,11 +12,17 @@ class Tweet extends Model
 
     protected $fillable = [
         'user_id',
-        'body'
+        'body',
+        'image'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function getImageAttribute($value)
+    {
+        return $value ? asset('storage/'.$value) : null;
     }
 }

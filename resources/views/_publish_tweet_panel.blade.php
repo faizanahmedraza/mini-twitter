@@ -12,8 +12,8 @@
         }
 
         .it {
-            height: 100px;
-            margin-left: 10px;
+            height: 160px;
+            border-radius: 10px;
         }
 
         .btn-rmv1 {
@@ -27,7 +27,7 @@
             border: 1px solid #fff;
             display: inline-block;
             background: #39383880;
-            margin: -5px -10px;
+            margin: -10px -15px;
             padding: 0px 7px;
         }
 
@@ -49,7 +49,7 @@
                  height="50"/>
         </div>
 
-        <form class="flex-1" action="/tweets" method="POST">
+        <form class="flex-1" action="/tweets" method="POST" enctype="multipart/form-data">
             @csrf
             <textarea name="body" id="" class="w-full placeholder-gray-600 border-0 focus:outline-none text-lg"
                       placeholder="What's Happening?" autofocus required></textarea>
@@ -68,9 +68,9 @@
                         <label for="file-input">
                             <i class="fal fa-image fa-fw" style="font-size: 26px; margin-top: 5px; cursor: pointer;"></i>
                         </label>
-                        <input id="file-input" type="file"/>
+                        <input id="file-input" type="file" accept="image/jpeg, image/png, image/gif, image/jpg" name="image">
                     </div>
-                    <a class="flex-initial" href=""><i class="fal fa-calendar-check fa-fw"></i></a>
+                    <a class="flex-initial" href=""><i class="fal fa-calendar-check fa-fw ml-2"></i></a>
                 </div>
                 <button type="submit"
                         class="bg-blue-400 rounded-full py-2 px-7 shadow text-sm text-white hover:bg-blue-500">Tweet

@@ -1,4 +1,4 @@
-<div class="my-2">
+<div class="my-2 border-b border-b-gray-400">
     @forelse($tweets as $tweet)
         @include('_tweet')
     @empty

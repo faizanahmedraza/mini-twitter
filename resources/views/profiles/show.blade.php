@@ -18,7 +18,7 @@
                  class="rounded-full absolute bottom-0 left-2/4 transform -translate-x-1/2 translate-y-1/2"/>
         </div>
         <div class="flex justify-between items-center mb-4 px-2">
-            <div style="max-width: 270px;">
+            <div style="max-width: 230px;">
                 <h2 class="font-bold text-2xl">{{$user->name}}</h2>
                 <p class="text-md text-gray-500">{{'@'.$user->username}}</p>
             </div>

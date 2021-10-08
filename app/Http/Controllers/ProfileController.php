@@ -60,6 +60,6 @@ class ProfileController extends Controller
             $attributes['banner'] = request()->file('banner')->store('banners');
         }
         $user->update($attributes);
-        return redirect($user->profilePath());
+        return redirect($user->profilePath())->with('success','Profile updated!');
     }
 }

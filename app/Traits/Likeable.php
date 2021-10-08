@@ -13,25 +13,26 @@ trait Likeable
     public function scopeWithLikes(Builder $query)
     {
         $query->leftJoinSub(
-            'select tweet_id, sum(liked) as likes, sum(!liked) as dislikes from likes group by tweet_id',
+            'select tweet_id, sum(liked) as likes, sum(disliked) as dislikes from likes group by tweet_id',
             'likes',
             'tweets.id',
             'likes.tweet_id'
         );
     }
 
-    public function like($user = null, $liked = true)
+    public function like($user = null, $liked = true, $disliked = false)
     {
         $this->likes()->updateOrCreate([
             'user_id' => $user ? $user->id : auth()->id()
         ],[
-            'liked' => $liked
+            'liked' => $liked,
+            'disliked' => $disliked
         ]);
     }
 
-    public function dislike($user = null)
+    public function dislike($user = null,$disliked = true)
     {
-        $this->like($user,false);
+        $this->like($user,false, $disliked);
     }
 
     public function isLikedBy(User $user, $liked = true)
@@ -39,9 +40,9 @@ trait Likeable
         return (bool)$user->likes->where('tweet_id',$this->id)->where('liked',$liked)->count();
     }
 
-    public function isDisLikedBy(User $user)
+    public function isDisLikedBy(User $user, $disliked = true)
     {
-        return (bool)$this->isLikedBy($user,false);
+        return (bool)$user->likes->where('tweet_id',$this->id)->where('disliked',$disliked)->count();
     }
 
     public function likes()

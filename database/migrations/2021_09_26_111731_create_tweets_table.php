@@ -17,6 +17,7 @@ class CreateTweetsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->text('body');
+            $table->string('image');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
