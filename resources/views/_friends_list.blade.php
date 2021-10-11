@@ -1,5 +1,5 @@
 <div class="flex justify-start flex-col">
-    <div class="py-1 lg:fixed lg:bg-white lg:z-40 lg:top-0 focus:border-blue-500" style="min-width: 31%;">
+    <div class="py-1 lg:fixed lg:bg-white lg:z-10 lg:top-0 focus:border-blue-500" style="min-width: 31%;">
         <form>
             <label class="flex justify-start text-sm bg-gray-100 rounded-full lg:w-6/12 lg:ml-3">
                 <div><i class="fal fa-search px-5 py-4 text-md font-normal fa-fw"></i></div>
@@ -7,7 +7,7 @@
             </label>
         </form>
     </div>
-    <div class="lg:mt-16 lg:z-0 bg-gray-100 border py-4 px-6 rounded-xl mt-2">
+    <div class="lg:mt-16 lg:z-0 bg-gray-100 border py-4 px-6 rounded-xl mt-2 relative">
         <h3 class="font-bold text-xl mb-4">Following</h3>
         <ul>
             @forelse(current_user()->follows as $user)

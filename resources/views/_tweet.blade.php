@@ -9,8 +9,8 @@
     </style>
 @endpush
 
-<div class="flex p-4 {{ $loop->last ? '' : 'border-b border-b-gray-400' }}">
-    <div class="mr-4 flex-shrink-0">
+<div class="flex flex-col {{ $loop->first ? 'px-4 pb-4 pt-0' : 'p-4' }} {{ $loop->last ? '' : 'border-b border-b-gray-400' }}">
+    <div class="flex items-center mr-4 flex-shrink-0">
         <a href="{{$tweet->user->profilePath()}}">
             <img src="{{$tweet->user->avatar}}"
                  alt=""
@@ -19,22 +19,22 @@
                  height="50"
             />
         </a>
-    </div>
-    <div>
-        <h5 class="font-bold mb-4">
-            <a href="{{$tweet->user->profilePath()}}">
-                {{ $tweet->user->name }}
+        <h5 class="font-bold">
+            <a href="{{$tweet->user->profilePath()}}" class="break-all">
+                {{ $tweet->user->name }} <span
+                        class="font-light">{{ ' @'.$tweet->user->username }} - {{\Carbon\Carbon::parse($tweet->created_at)->isoFormat('MMM D')}}</span>
             </a>
         </h5>
-        <p class="text-sm mb-3">
-            {{$tweet->body}}
-            @if(!empty($tweet->image))
-                <span>
+    </div>
+    <p class="text-sm mb-3 mt-2 cursor-pointer" onclick="location.href='/tweets/{{$tweet->id}}/detail';">
+        {{$tweet->body}}
+        @if(!empty($tweet->image))
+            <span>
                 <img src="{{$tweet->image}}" class="img-preview">
             </span>
-            @endif
-        </p>
-
+        @endif
+    </p>
+    <div class="flex justify-between">
         <div class="flex">
             <div class="flex items-center mr-4 cursor-pointer {{$tweet->isLikedBy(current_user()) ? 'text-blue-500 font-semibold' : 'text-gray-500'}}"
                  onclick="likeTweet(this,'{{$tweet->id}}');">
@@ -62,26 +62,9 @@
                 <p class="text-xs">{{ $tweet->dislikes ?: 0 }}</p>
             </div>
         </div>
+        <div>
+            <button class="comment-modal modal-open focus:outine-none outline-none" data-img="{{$tweet->user->avatar}}" data-name="{{$tweet->user->name}}" data-username="{{$tweet->user->username}}" data-time="{{\Carbon\Carbon::parse($tweet->created_at)->isoFormat('MMM D')}}" data-body="{{$tweet->body}}"><i class="fal fa-comment"></i>
+            </button>
+        </div>
     </div>
 </div>
-
-
-@push('scripts')
-    <script>
-        function likeTweet(input, tweetId) {
-            axios.post('/tweets/' + tweetId + '/like', {tweet: tweetId}).then((resolve) => {
-                if (resolve) {
-                    location.reload();
-                }
-            });
-        }
-
-        function disLikeTweet(input, tweetId) {
-            axios.delete('/tweets/' + tweetId, {tweet: tweetId}).then((resolve) => {
-                if (resolve) {
-                    location.reload();
-                }
-            });
-        }
-    </script>
-@endpush

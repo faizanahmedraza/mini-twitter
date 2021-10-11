@@ -20,21 +20,30 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/image-reader.css') }}" rel="stylesheet">
     @stack('styles')
 </head>
 <body>
 <div id="app">
     {{ $slot }}
 </div>
+<script src="{{asset('js/like-comment.js')}}"></script>
+<script src="{{asset('js/image-reader.js')}}"></script>
+<script src="{{asset('js/modal-alert.js')}}"></script>
 @stack('scripts')
-<script>
-    function closeAlert(event){
-        let element = event.target;
-        while(element.nodeName !== "BUTTON"){
-            element = element.parentNode;
-        }
-        element.parentNode.parentNode.removeChild(element.parentNode);
-    }
-</script>
+    <script>
+        $(".comment-modal").on("click",function () {
+            let imgPath = $(this).data('img');
+            let name = $(this).data('name');
+            let username = $(this).data('username');
+            let time = $(this).data('time');
+            let body = $(this).data('body');
+            $("#commentImg").attr('src',imgPath);
+            $("#realName").text(name);
+            $("#userName").text('@'+username+' - ');
+            $("#createdAt").text(time);
+            $("#userBody").text(body);
+        });
+    </script>
 </body>
 </html>

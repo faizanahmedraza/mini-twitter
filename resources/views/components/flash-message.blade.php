@@ -1,6 +1,6 @@
 @if (session('success'))
     <!-- Toast Notification Success-->
-    <div class="fixed bottom-5 right-5 flex items-center bg-green-500 border-l-4 border-green-700 rounded-r-md py-2 px-3 shadow-md mb-2 text-white">
+    <div class="fixed bottom-5 right-5 z-40 flex items-center bg-green-500 border-l-4 border-green-700 rounded-r-md py-2 px-3 shadow-md mb-2 text-white drop-shadow-2xl">
         <div class="text-green-500 rounded-full bg-white mr-3">
             <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor"
                  xmlns="http://www.w3.org/2000/svg">

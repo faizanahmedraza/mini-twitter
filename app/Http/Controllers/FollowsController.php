@@ -10,7 +10,7 @@ class FollowsController extends Controller
     public function store(User $user)
     {
         current_user()->toggleFollow($user);
-        $follow = (bool)current_user()->following($user) ? 'un following' : 'following';
+        $follow = (bool)current_user()->following($user) ? 'following' : 'un following';
         return back()->with('success','Now you '.$follow.' '.$user->name.'!');
     }
 }

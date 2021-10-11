@@ -28,4 +28,10 @@ class TweetController extends Controller
         Tweet::create($attributes);
         return redirect('/tweets')->with('success','Tweet submitted!');
     }
+
+    public function show(Tweet $tweet)
+    {
+        $tweet = Tweet::with(['comments','user'])->withLikes()->findOrFail($tweet->id);
+        return view('tweets.detail',compact('tweet'));
+    }
 }

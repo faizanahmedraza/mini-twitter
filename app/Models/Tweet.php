@@ -16,13 +16,18 @@ class Tweet extends Model
         'image'
     ];
 
+    public function getImageAttribute($value)
+    {
+        return $value ? asset('storage/'.$value) : null;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class,'user_id','id');
     }
 
-    public function getImageAttribute($value)
+    public function comments()
     {
-        return $value ? asset('storage/'.$value) : null;
+        return $this->hasMany(Comment::class, 'tweet_id','id');
     }
 }
