@@ -49,16 +49,16 @@
                     />
                 </p>
                 <div class="flex-1 items-center">
-                    <form action="/tweets" method="POST" enctype="multipart/form-data">
+                    <form id="modalForm" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <textarea name="body"
+                        <textarea name="comment"
                                   class="w-full placeholder-gray-600 border-0 focus:outline-none text-lg"
-                                  placeholder="What's Happening?" autofocus required></textarea>
+                                  placeholder="What's Happening?" required></textarea>
                         <div class="yes">
                             <img id="ImgPreviewComment" src="" class="preview_comment"/>
                             <input type="button" id="removeImageComment" value="x" class="btn-rmv1"/>
                         </div>
-                        @error('body')
+                        @error('comment')
                         <p class="text-red-400 text-sm mt-2">{{$message}}</p>
                         @enderror
                         <div class="flex justify-between px-3 pt-3 pb-3">
@@ -73,8 +73,7 @@
                                 </div>
                                 <a class="flex-initial" href=""><i class="fal fa-calendar-check fa-fw ml-2"></i></a>
                             </div>
-                            <button type="submit"
-                                    class="bg-blue-400 rounded-full py-2 px-7 shadow text-sm text-white hover:bg-blue-500">
+                            <button class="bg-blue-400 rounded-full py-2 px-7 shadow text-sm text-white hover:bg-blue-500" onclick="this.disabled=true;this.form.submit();this.form.reset();">
                                 Reply
                             </button>
                         </div>

@@ -63,7 +63,7 @@
             </div>
         </div>
         <div>
-            <button class="comment-modal modal-open focus:outine-none outline-none" data-img="{{$tweet->user->avatar}}" data-name="{{$tweet->user->name}}" data-username="{{$tweet->user->username}}" data-time="{{\Carbon\Carbon::parse($tweet->created_at)->isoFormat('MMM D')}}" data-body="{{$tweet->body}}"><i class="fal fa-comment"></i>
+            <button class="comment-modal modal-open focus:outine-none outline-none" data-tweet-id="{{$tweet->id}}" data-img="{{$tweet->user->avatar}}" data-name="{{$tweet->user->name}}" data-username="{{$tweet->user->username}}" data-time="{{\Carbon\Carbon::parse($tweet->created_at)->isoFormat('MMM D')}}" data-body="{{$tweet->body}}"><i class="fal fa-comment"></i>
             </button>
         </div>
     </div>

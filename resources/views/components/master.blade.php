@@ -33,6 +33,7 @@
 @stack('scripts')
     <script>
         $(".comment-modal").on("click",function () {
+            let tweetId = $(this).data('tweetId')
             let imgPath = $(this).data('img');
             let name = $(this).data('name');
             let username = $(this).data('username');
@@ -43,6 +44,7 @@
             $("#userName").text('@'+username+' - ');
             $("#createdAt").text(time);
             $("#userBody").text(body);
+            $('#modalForm').attr('action','/tweets/'+tweetId+'/comment');
         });
     </script>
 </body>

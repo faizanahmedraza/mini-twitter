@@ -13,24 +13,3 @@ function disLikeTweet(input, tweetId) {
         }
     });
 }
-
-function commentModal(input, tweetId) {
-    axios.post(`/admin/website/pages/inquiries/submit-answer`, {
-        inquiryId,
-        message
-    }).then(function (response) {
-        swal({
-            title: response.data.msg,
-            icon: "success",
-            closeOnClickOutside: false
-        }).then((successBtn) => {
-            if (successBtn) {
-                $("#inquiry_id,#message").val('');
-                $("#guestModal").removeClass("fade").modal("hide");
-                location.href = "/admin/website/pages/inquiries";
-            }
-        });
-    }).catch(error => {
-        console.clear();
-    });
-}

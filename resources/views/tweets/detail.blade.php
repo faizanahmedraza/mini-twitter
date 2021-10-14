@@ -81,7 +81,8 @@
                     </div>
                 </div>
                 <div>
-                    <button class="comment-modal modal-open focus:outine-none outline-none" data-img="{{$tweet->user->avatar}}" data-name="{{$tweet->user->name}}" data-username="{{$tweet->user->username}}" data-time="{{\Carbon\Carbon::parse($tweet->created_at)->isoFormat('MMM D')}}" data-body="{{$tweet->body}}"><i class="fal fa-comment"></i>
+                    <button class="bg-blue-400 rounded-full py-2 px-7 shadow text-sm text-white hover:bg-blue-500" onclick="this.disabled=true;this.form.submit();this.form.reset();">
+                        Reply
                     </button>
                 </div>
             </div>

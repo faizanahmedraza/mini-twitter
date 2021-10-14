@@ -18,6 +18,7 @@ class CreateCommentsTable extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('tweet_id')->constrained('tweets')->cascadeOnUpdate()->cascadeOnDelete();
             $table->text('body');
+            $table->string('image');
             $table->timestamps();
         });
     }
