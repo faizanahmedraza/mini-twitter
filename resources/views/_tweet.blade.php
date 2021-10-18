@@ -62,9 +62,10 @@
                 <p class="text-xs">{{ $tweet->dislikes ?: 0 }}</p>
             </div>
         </div>
-        <div>
+        <div class="flex items-center cursor-pointer space-x-1">
             <button class="comment-modal modal-open focus:outine-none outline-none" data-tweet-id="{{$tweet->id}}" data-img="{{$tweet->user->avatar}}" data-name="{{$tweet->user->name}}" data-username="{{$tweet->user->username}}" data-time="{{\Carbon\Carbon::parse($tweet->created_at)->isoFormat('MMM D')}}" data-body="{{$tweet->body}}"><i class="fal fa-comment"></i>
             </button>
+            <p class="text-xs">{{ $tweet->total_comments ?: 0 }}</p>
         </div>
     </div>
 </div>

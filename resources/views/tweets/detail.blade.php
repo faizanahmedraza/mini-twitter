@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="lg:pt-14 lg:z-0">
-        <div class="flex flex-col border-b border-gray-200 px-4">
+        <div class="flex flex-col border-b border-t border-gray-200 px-4 pt-2">
             <div class="flex items-center mr-4 flex-shrink-0">
                 <a href="{{$tweet->user->profilePath()}}">
                     <img src="{{$tweet->user->avatar}}"
@@ -53,7 +53,7 @@
             <div class="flex justify-start border-t border-gray-200 text-gray-600 py-2 space-x-3">
                 <p class="text-sm"><span class="text-black font-bold">{{ $tweet->likes ?: 0 }}</span> Likes</p>
                 <p class="text-sm"><span class="text-black font-bold">{{ $tweet->dislikes ?: 0 }}</span> Dislikes</p>
-                <p class="text-sm"><span class="text-black font-bold"></span> Comments</p>
+                <p class="text-sm"><span class="text-black font-bold">{{ $tweet->total_comments ?: 0 }}</span> Comments</p>
             </div>
             <div class="flex justify-between border-t border-gray-200 py-2">
                 <div class="flex">
@@ -81,11 +81,45 @@
                     </div>
                 </div>
                 <div>
-                    <button class="bg-blue-400 rounded-full py-2 px-7 shadow text-sm text-white hover:bg-blue-500" onclick="this.disabled=true;this.form.submit();this.form.reset();">
-                        Reply
+                    <button class="comment-modal modal-open bg-blue-400 rounded-full py-2 px-7 shadow text-sm text-white hover:bg-blue-500"
+                            data-tweet-id="{{$tweet->id}}" data-img="{{$tweet->user->avatar}}"
+                            data-name="{{$tweet->user->name}}" data-username="{{$tweet->user->username}}"
+                            data-time="{{\Carbon\Carbon::parse($tweet->created_at)->isoFormat('MMM D')}}"
+                            data-body="{{$tweet->body}}">Reply
                     </button>
                 </div>
             </div>
         </div>
+
+        @forelse($tweet->comments as $comment)
+            <div class="flex flex-col border-b border-gray-200 px-4 pt-2 {{$loop->last ? 'mb-2' : ''}}">
+                <div class="flex items-center mr-4 flex-shrink-0">
+                    <a href="{{$comment->user->profilePath()}}">
+                        <img src="{{$comment->user->avatar}}"
+                             alt=""
+                             class="rounded-full mr-4"
+                             width="50"
+                             height="50"
+                        />
+                    </a>
+                    <h5 class="font-bold">
+                        <a href="{{$comment->user->profilePath()}}">
+                            {{ $comment->user->name }} <span
+                                    class="font-light">{{ ' @'.$comment->user->username }}</span>
+                        </a>
+                    </h5>
+                </div>
+                <p class="text-sm mb-3 mt-2">
+                    {{$comment->body}}
+                    @if(!empty($comment->image))
+                        <span>
+                <img src="{{$comment->image}}" class="img-preview">
+            </span>
+                    @endif
+                </p>
+            </div>
+        @empty
+            <p class="p-2 border-b border-gray-100">No Comments</p>
+        @endforelse
     </div>
 </x-app>

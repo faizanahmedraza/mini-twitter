@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTweetRequest;
 use App\Models\Tweet;
 use Illuminate\Http\Request;
 
@@ -14,12 +15,9 @@ class TweetController extends Controller
         ]);
     }
 
-    public function store()
+    public function store(StoreTweetRequest $request)
     {
-        $attributes = request()->validate([
-            'body' => 'required|max:300',
-            'image' => 'sometimes|nullable|image|mimes:jpeg,jpg,png|max:100000'
-        ]);
+        $attributes = $request->validated();
         $attributes['user_id'] = auth()->id();
         if(request()->hasFile('image'))
         {
