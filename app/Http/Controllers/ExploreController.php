@@ -11,7 +11,7 @@ class ExploreController extends Controller
     public function __invoke()
     {
         return view('explore',[
-            'tweets' => Tweet::with(['comments','user'])->withLikes()->latest()->paginate(50)
+            'tweets' => Tweet::with(['user'])->withLikes()->latest()->paginate(50)
         ]);
     }
 }

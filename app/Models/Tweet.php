@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Traits\Likeable;
+use App\Traits\Replyable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Tweet extends Model
 {
-    use HasFactory, Likeable;
+    use HasFactory, Likeable, Replyable;
 
     protected $fillable = [
         'user_id',
@@ -28,6 +29,6 @@ class Tweet extends Model
 
     public function retweets()
     {
-        return $this->hasMany(Tweet::class,'tweet_id','id');
+        return $this->hasMany(Retweet::class,'tweet_id','id');
     }
 }
