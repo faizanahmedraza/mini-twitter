@@ -18,6 +18,8 @@ class CreateTweetsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->text('body');
             $table->string('image')->nullable();
+            $table->boolean('is_retweet')->default(0);
+            $table->boolean('is_reply')->default(0);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });

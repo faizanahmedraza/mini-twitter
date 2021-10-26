@@ -14,6 +14,7 @@ class RepliesController extends Controller
         ]);
         $attributes['user_id'] = auth()->id();
         $attributes['body'] = request()->comment;
+        $attributes['is_reply'] = 1;
         if(request()->hasFile('image'))
         {
             $attributes['image'] = request()->file('image')->store('tweets/images');

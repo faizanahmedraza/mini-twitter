@@ -9,8 +9,15 @@ class Reply extends Model
 {
     use HasFactory;
 
+    protected $table = "replies";
+
     protected $fillable = [
-        'user_id',
-        'tweet_id'
+        'tweet_id',
+        'replying_tweet_id'
     ];
+
+    public function tweet()
+    {
+        return $this->belongsTo(Tweet::class,'tweet_id','id');
+    }
 }

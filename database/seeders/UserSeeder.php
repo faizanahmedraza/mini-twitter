@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'name' => 'Faizan Ahmed Raza',
             'email' => 'faizan@example.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('admin123'), // password
+            'password' => '$2y$10$sYgA9faH6Li0ZZfGtIMcY.vGk3vSwHFP981wDoGKuY.qKM8cI7w8S', // admin123
             'remember_token' => Str::random(10),
         ]);
     }

@@ -14,7 +14,9 @@ class Tweet extends Model
     protected $fillable = [
         'user_id',
         'body',
-        'image'
+        'image',
+        'is_retweet',
+        'is_reply',
     ];
 
     public function getImageAttribute($value)

@@ -53,7 +53,7 @@
             <div class="flex justify-start border-t border-gray-200 text-gray-600 py-2 space-x-3">
                 <p class="text-sm"><span class="text-black font-bold">{{ $tweet->likes ?: 0 }}</span> Likes</p>
                 <p class="text-sm"><span class="text-black font-bold">{{ $tweet->dislikes ?: 0 }}</span> Dislikes</p>
-                <p class="text-sm"><span class="text-black font-bold">{{ $tweet->total_comments ?: 0 }}</span> Comments</p>
+                <p class="text-sm"><span class="text-black font-bold">{{ $tweet->comments ?: 0 }}</span> Comments</p>
             </div>
             <div class="flex justify-between border-t border-gray-200 py-2">
                 <div class="flex">
@@ -91,11 +91,11 @@
             </div>
         </div>
 
-        @forelse($tweet->comments as $comment)
+        @forelse($tweet->replies as $subTweet)
             <div class="flex flex-col border-b border-gray-200 px-4 pt-2 {{$loop->last ? 'mb-2' : ''}}">
                 <div class="flex items-center mr-4 flex-shrink-0">
-                    <a href="{{$comment->user->profilePath()}}">
-                        <img src="{{$comment->user->avatar}}"
+                    <a href="{{$subTweet->user->profilePath()}}">
+                        <img src="{{$subTweet->user->avatar}}"
                              alt=""
                              class="rounded-full mr-4"
                              width="50"
@@ -103,17 +103,17 @@
                         />
                     </a>
                     <h5 class="font-bold">
-                        <a href="{{$comment->user->profilePath()}}">
-                            {{ $comment->user->name }} <span
-                                    class="font-light">{{ ' @'.$comment->user->username }}</span>
+                        <a href="{{$subTweet->user->profilePath()}}">
+                            {{ $subTweet->user->name }} <span
+                                    class="font-light">{{ ' @'.$subTweet->user->username }}</span>
                         </a>
                     </h5>
                 </div>
                 <p class="text-sm mb-3 mt-2">
-                    {{$comment->body}}
-                    @if(!empty($comment->image))
+                    {{$subTweet->body}}
+                    @if(!empty($subTweet->image))
                         <span>
-                <img src="{{$comment->image}}" class="img-preview">
+                <img src="{{$subTweet->image}}" class="img-preview">
             </span>
                     @endif
                 </p>

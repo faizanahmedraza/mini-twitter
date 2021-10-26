@@ -54,33 +54,44 @@ class User extends Authenticatable
 
     public function getAvatarAttribute($value)
     {
-        return asset($value ? 'storage/'.$value : '/images/default-avatar.png');
+        return asset($value ? 'storage/' . $value : '/images/default-avatar.png');
     }
 
     public function getBannerAttribute($value)
     {
-        return asset($value ? 'storage/'.$value : '/images/default-banner.jpg');
+        return asset($value ? 'storage/' . $value : '/images/default-banner.jpg');
     }
 
     public function timeline()
     {
         $friends = $this->follows()->pluck('id');
-        return Tweet::with(['user'])->whereIn('user_id',$friends)->orWhere('user_id',$this->id)->withLikes()->latest()->paginate(50);
+        return Tweet::with(['user', 'replies'])
+            ->where('is_retweet', '=', 0)
+            ->where('is_reply', '=', 0)
+            ->whereIn('user_id', $friends)
+            ->orWhere(function ($query) {
+                $query->where('user_id', $this->id)
+                    ->where('is_retweet', '=', 0)
+                    ->where('is_reply', '=', 0);
+            })
+            ->withLikes()
+            ->latest()
+            ->paginate(50);
     }
 
     public function tweets()
     {
-        return $this->hasMany(Tweet::class,'user_id','id')->latest();
+        return $this->hasMany(Tweet::class, 'user_id', 'id')->latest();
     }
 
     public function likes()
     {
-        return $this->hasMany(Like::class,'user_id','id');
+        return $this->hasMany(Like::class, 'user_id', 'id');
     }
 
     public function profilePath($append = '')
     {
-        $path = route('profile',$this->username);
+        $path = route('profile', $this->username);
         return $append ? "{$path}/{$append}" : $path;
     }
 }

@@ -4,5 +4,5 @@
     @empty
         <p class="px-4 pb-4 pt-0">No tweet's yet!</p>
     @endforelse
-        {{$tweets->links()}}
+    {{$tweets->links()}}
 </div>

@@ -29,7 +29,7 @@ class TweetController extends Controller
 
     public function show(Tweet $tweet)
     {
-        $tweet = Tweet::with(['user'])->withLikes()->findOrFail($tweet->id);
+        $tweet = Tweet::with(['user','replies'])->withLikes()->withReplies()->findOrFail($tweet->id);
         return view('tweets.detail',compact('tweet'));
     }
 }
