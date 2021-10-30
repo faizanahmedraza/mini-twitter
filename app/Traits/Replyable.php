@@ -4,6 +4,7 @@
 namespace App\Traits;
 
 use App\Models\Tweet;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 
 trait Replyable
@@ -18,18 +19,23 @@ trait Replyable
         );
     }
 
-    public function replies()
+    public function onlyReplyTweets()
     {
-        return $this->belongsToMany(Tweet::class,'replies','tweet_id','replying_tweet_id')->withTimestamps();
+        return current_user()->tweets->where('is_reply',1);
     }
 
-    public function isReplied(Tweet $tweet)
+    public function isRepliedBy(User $user)
     {
-        return (bool)$this->replies()->where('replying_tweet_id',$tweet->id)->exists();
+        return (bool)$user->replies->where('tweet_id',$this->id)->count();
     }
 
     public function reply(Tweet $tweet)
     {
         $this->replies()->attach($tweet);
+    }
+
+    public function replies()
+    {
+        return $this->belongsToMany(Tweet::class,'replies','tweet_id','replying_tweet_id')->withTimestamps();
     }
 }

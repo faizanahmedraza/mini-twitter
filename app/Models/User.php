@@ -75,6 +75,7 @@ class User extends Authenticatable
                     ->where('is_reply', '=', 0);
             })
             ->withLikes()
+            ->withReplies()
             ->latest()
             ->paginate(50);
     }
@@ -87,6 +88,11 @@ class User extends Authenticatable
     public function likes()
     {
         return $this->hasMany(Like::class, 'user_id', 'id');
+    }
+
+    public function replies()
+    {
+        return $this->hasManyThrough(Reply::class, Tweet::class,'user_id','replying_tweet_id','id','id');
     }
 
     public function profilePath($append = '')

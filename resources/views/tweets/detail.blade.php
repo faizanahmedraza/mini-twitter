@@ -91,7 +91,7 @@
             </div>
         </div>
 
-        @forelse($tweet->replies as $subTweet)
+        @forelse($comments as $subTweet)
             <div class="flex flex-col border-b border-gray-200 px-4 pt-2 {{$loop->last ? 'mb-2' : ''}}">
                 <div class="flex items-center mr-4 flex-shrink-0">
                     <a href="{{$subTweet->user->profilePath()}}">
@@ -113,10 +113,44 @@
                     {{$subTweet->body}}
                     @if(!empty($subTweet->image))
                         <span>
-                <img src="{{$subTweet->image}}" class="img-preview">
-            </span>
+                            <img src="{{$subTweet->image}}" class="img-preview">
+                        </span>
                     @endif
                 </p>
+                <div class="flex justify-between pb-2">
+                    <div class="flex">
+                        <div class="flex items-center mr-4 cursor-pointer {{$subTweet->isLikedBy(current_user()) ? 'text-blue-500 font-semibold' : 'text-gray-500'}}"
+                             onclick="likeTweet(this,'{{$subTweet->id}}');">
+                            <svg viewBox="0 0 20 20" class="w-3 mr-1">
+                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g class="fill-current">
+                                        <path d="M11.0010436,0 C9.89589787,0 9.00000024,0.886706352 9.0000002,1.99810135 L9,8 L1.9973917,8 C0.894262725,8 0,8.88772964 0,10 L0,12 L2.29663334,18.1243554 C2.68509206,19.1602453 3.90195042,20 5.00853025,20 L12.9914698,20 C14.1007504,20 15,19.1125667 15,18.000385 L15,10 L12,3 L12,0 L11.0010436,0 L11.0010436,0 Z M17,10 L20,10 L20,20 L17,20 L17,10 L17,10 Z"
+                                              id="Fill-97"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                            <p class="text-xs">{{ $subTweet->likes ?: 0 }}</p>
+                        </div>
+
+                        <div class="flex items-center cursor-pointer {{$subTweet->isDisLikedBy(current_user()) ? 'text-blue-500 font-semibold' : 'text-gray-500'}}"
+                             onclick="disLikeTweet(this,'{{$subTweet->id}}');">
+                            <svg viewBox="0 0 20 20" class="w-3 mr-1">
+                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g class="fill-current">
+                                        <path d="M11.0010436,20 C9.89589787,20 9.00000024,19.1132936 9.0000002,18.0018986 L9,12 L1.9973917,12 C0.894262725,12 0,11.1122704 0,10 L0,8 L2.29663334,1.87564456 C2.68509206,0.839754676 3.90195042,8.52651283e-14 5.00853025,8.52651283e-14 L12.9914698,8.52651283e-14 C14.1007504,8.52651283e-14 15,0.88743329 15,1.99961498 L15,10 L12,17 L12,20 L11.0010436,20 L11.0010436,20 Z M17,10 L20,10 L20,0 L17,0 L17,10 L17,10 Z"
+                                              id="Fill-97"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                            <p class="text-xs">{{ $subTweet->dislikes ?: 0 }}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center cursor-pointer space-x-1">
+                        <button class="comment-modal modal-open focus:outine-none outline-none" data-tweet-id="{{$subTweet->id}}" data-img="{{$subTweet->user->avatar}}" data-name="{{$subTweet->user->name}}" data-username="{{$subTweet->user->username}}" data-time="{{\Carbon\Carbon::parse($subTweet->created_at)->isoFormat('MMM D')}}" data-body="{{$subTweet->body}}"><i class="fal fa-comment"></i>
+                        </button>
+                        <p class="text-xs">{{ $subTweet->comments ?: 0 }}</p>
+                    </div>
+                </div>
             </div>
         @empty
             <p class="p-2 border-b border-gray-100">No Comments</p>

@@ -29,7 +29,9 @@ class TweetController extends Controller
 
     public function show(Tweet $tweet)
     {
-        $tweet = Tweet::with(['user','replies'])->withLikes()->withReplies()->findOrFail($tweet->id);
-        return view('tweets.detail',compact('tweet'));
+        $tweets = Tweet::with(['user','replies'])->withLikes()->withReplies()->get();
+        $tweet = $tweets->find($tweet->id);
+        $comments = $tweets->whereIn('id',$tweet->replies->pluck('id'))->all();
+        return view('tweets.detail',compact('tweet','comments'));
     }
 }
