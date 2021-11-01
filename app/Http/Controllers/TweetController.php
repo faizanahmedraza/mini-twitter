@@ -31,7 +31,7 @@ class TweetController extends Controller
     {
         $tweets = Tweet::with(['user','replies'])->withLikes()->withReplies()->get();
         $tweet = $tweets->find($tweet->id);
-        $comments = $tweets->whereIn('id',$tweet->replies->pluck('id'))->all();
+        $comments = $tweets->whereIn('id',$tweet->replies->pluck('id')->toArray())->all();
         return view('tweets.detail',compact('tweet','comments'));
     }
 }

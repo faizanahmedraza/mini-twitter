@@ -26,7 +26,9 @@ trait Replyable
 
     public function isRepliedBy(User $user)
     {
-        return (bool)$user->replies->where('tweet_id',$this->id)->count();
+        return (bool)Tweet::where('user_id',$user->id)->with(['replies'=>function($q){
+            $q->where('replying_tweet_id',$this->id);
+        }])->exists();
     }
 
     public function reply(Tweet $tweet)

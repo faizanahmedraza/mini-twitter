@@ -19,6 +19,7 @@ class Tweet extends Model
         'is_reply',
     ];
 
+
     public function getImageAttribute($value)
     {
         return $value ? asset('storage/' . $value) : null;

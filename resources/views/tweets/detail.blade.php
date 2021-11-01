@@ -145,8 +145,8 @@
                             <p class="text-xs">{{ $subTweet->dislikes ?: 0 }}</p>
                         </div>
                     </div>
-                    <div class="flex items-center cursor-pointer space-x-1">
-                        <button class="comment-modal modal-open focus:outine-none outline-none" data-tweet-id="{{$subTweet->id}}" data-img="{{$subTweet->user->avatar}}" data-name="{{$subTweet->user->name}}" data-username="{{$subTweet->user->username}}" data-time="{{\Carbon\Carbon::parse($subTweet->created_at)->isoFormat('MMM D')}}" data-body="{{$subTweet->body}}"><i class="fal fa-comment"></i>
+                    <div class="flex items-center cursor-pointer space-x-1 {{$subTweet->isRepliedBy(current_user()) ? 'text-blue-500 font-semibold' : 'text-gray-500'}}">
+                        <button class="comment-modal modal-open focus:outine-none outline-none" data-tweet-id="{{$subTweet->id}}" data-img="{{$subTweet->user->avatar}}" data-name="{{$subTweet->user->name}}" data-username="{{$subTweet->user->username}}" data-time="{{\Carbon\Carbon::parse($subTweet->created_at)->isoFormat('MMM D')}}" data-body="{{$subTweet->body}}"><i class="fas fa-comment"></i>
                         </button>
                         <p class="text-xs">{{ $subTweet->comments ?: 0 }}</p>
                     </div>
