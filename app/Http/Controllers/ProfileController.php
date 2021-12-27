@@ -13,7 +13,7 @@ class ProfileController extends Controller
     {
         return view('profiles.show', [
             'user' => $user,
-            'tweets' => $user->timeline()
+                'tweets' => $user->timeline()
         ]);
     }
 
